@@ -425,3 +425,46 @@ document.addEventListener('keydown', function(e) {
                 this.parentElement.style.transform = 'translateY(0)';
             });
         });
+   function toggleFAQ(element) {
+            const faqItem = element.parentElement;
+            const answer = faqItem.querySelector('.faq-answer');
+            const icon = element.querySelector('.faq-icon');
+            
+            // Close all other FAQ items
+            document.querySelectorAll('.faq-item').forEach(item => {
+                if (item !== faqItem) {
+                    const otherAnswer = item.querySelector('.faq-answer');
+                    const otherIcon = item.querySelector('.faq-icon');
+                    
+                    otherAnswer.classList.remove('expanded');
+                    otherIcon.classList.remove('expanded');
+                    otherIcon.classList.add('collapsed');
+                }
+            });
+            
+            // Toggle current FAQ item
+            if (answer.classList.contains('expanded')) {
+                answer.classList.remove('expanded');
+                icon.classList.remove('expanded');
+                icon.classList.add('collapsed');
+            } else {
+                answer.classList.add('expanded');
+                icon.classList.remove('collapsed');
+                icon.classList.add('expanded');
+            }
+        }
+
+        // Initialize - ensure all items start collapsed except the third one (matching the image)
+        document.addEventListener('DOMContentLoaded', function() {
+            const faqItems = document.querySelectorAll('.faq-item');
+            faqItems.forEach((item, index) => {
+                const answer = item.querySelector('.faq-answer');
+                const icon = item.querySelector('.faq-icon');
+                
+                if (index !== 2) { // Keep third item (index 2) expanded as shown in image
+                    answer.classList.remove('expanded');
+                    icon.classList.remove('expanded');
+                    icon.classList.add('collapsed');
+                }
+            });
+        });
